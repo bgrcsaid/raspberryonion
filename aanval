@@ -29,6 +29,7 @@ DocumentRoot "/var/www/html/web/"
 
 uncomment the line of this file
 sudo vi /etc/apache2/mods-enabled/php7.2.load 
+
 sudo a2enmod rewrite
 systemctl restart apache2
 
