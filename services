@@ -1,0 +1,40 @@
+sudo vi /lib/systemd/system/snort.service
+
+[Unit]
+Description=Snort NIDS Daemon
+After=syslog.target network.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/snort -q -u snort -g snort -c /etc/snort/snort.conf -i eth0
+ 
+[Install]
+WantedBy=multi-user.target
+ 
+ 
+ 
+sudo vi /lib/systemd/system/barnyard2.service
+[Unit]
+Description=Barnyard2 Daemon
+After=syslog.target network.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/barnyard2 -c /etc/snort/barnyard2.conf -d /var/log/snort -f snort.u2 -q -w /var/log/snort/barnyard2.waldo -g snort -u snort -D -a /var/log/snort/archived_logs
+ 
+[Install]
+WantedBy=multi-user.target
+
+
+
+sudo vi /lib/systemd/system/tcpdump.service
+
+[Unit]
+Description=tcpdump daemon
+
+[Service]
+ExecStart=/usr/sbin/tcpdump -i eth0 -e -C 400 -W 60 -w /home/pi/tcpdump/tcpdump.pcap
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
