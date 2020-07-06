@@ -21,9 +21,9 @@ Fail2ban
 Cyberchef
 
 System requirements:
-Model : Raspberry Pi 4
-RAM : 4-8 Go
-Processor : 64 bits
-Memory : 128 bits
-Architecture : ARM
-Distribution : Raspberry Pi OS
+Model : Raspberry Pi 4, 
+RAM : 4-8 Go, 
+Processor : 64 bits, 
+Memory : 128 bits, 
+Architecture : ARM, 
+Distribution : Raspberry Pi OS.
