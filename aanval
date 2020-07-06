@@ -1,0 +1,83 @@
+sudo apt install apache2 curl wget gnupg2 ca-certificates lsb-release apt-transport-https
+
+sudo wget https://packages.sury.org/php/apt.gpg
+ 
+sudo apt-key add apt.gpg
+
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.list
+
+sudo apt-get update 
+
+sudo apt-get install php7.2 php7.2-fpm php7.2-mysql php7.2-gmp php7.2-bcmath libapache2-mod-php7.2 php7.2-curl php7.2-gd php7.2-sqlite3 php7.2-xml php7.2-zip
+
+cd /var/www/html/
+
+sudo apt install iputils-ping net-tools git perl nmap flex bison libbison-dev zlib1g zlib1g-dev pcregrep pcre2-utils libdnet linux-libc-dev libpcap-dev libtool 
+
+service apache2 restart
+
+sudo wget download.aanval.com/aanval-9-latest-stable.tar.gz
+sudo tar -zxvf aanval-9-latest-stable.tar.gz
+sudo rm -f aanval-9-latest-stable.tar.gz
+
+sudo vi /etc/apache2/sites-enabled/000-default.conf // Modify these lines
+DocumentRoot "/var/www/html/web/"
+<Directory "/var/www/html/web/">
+    AllowOverride All
+    Require all granted
+</Directory>
+
+uncomment the line of this file
+sudo vi /etc/apache2/mods-enabled/php7.2.load 
+sudo a2enmod rewrite
+systemctl restart apache2
+
+cd bin
+
+php requirements
+
+cd /
+sudo chmod -R 777 /var/www/html/var
+sudo chmod -R 777 /var/www/html/app
+sudo chown pi etc
+
+cd /var/www/html
+sudo chown pi web/config/environment.php 
+sudo chown pi web/config/version.php 
+
+cd /var/www/html/
+sudo chown pi var/storage/Defaults/classification.config 
+sudo chown pi var/storage/Defaults/sid-msg.map 
+sudo chown pi var/storage/Defaults/
+sudo chown pi var/storage/Defaults/gen-msg.map 
+sudo chown pi var/storage/SMT/
+sudo chown pi var/storage/Downloads/
+sudo chown pi var/storage/GeoIP/GeoLite2-City.mmdb 
+sudo chown pi var/storage/GeoIP/
+sudo chown pi var/storage
+sudo chown pi var/sessions/.gitkeep 
+sudo chown pi var/sessions/
+sudo chown pi var/logs/.gitkeep 
+sudo chown pi var/logs/
+sudo chown pi var/cache/
+sudo chown pi app
+
+cd /var/www/html/bin
+sudo php console aanval:install
+
+// Connect on localhost to aanval
+// Create Snort sensor
+
+sudo php console aanval:BPU:run
+sudo php console aanval:BPU:start
+
+cd /var/www/html
+sudo mkdir /smt
+cd var/smt
+sudo cp * /smt
+sudo vi smtConfig.php
+cd ..
+
+cd /smt
+sudo php smt aanval:SMT:run
+sudo php smt aanval:SMT:start
