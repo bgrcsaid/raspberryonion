@@ -1,0 +1,7 @@
+sudo apt install chaosreader tcpdump wireshark
+
+// Instal trimpcap
+sudo apt-get install python-pip
+sudo pip install dpkt
+sudo pip install repoze.lru
+sudo wget -O /opt/trimpcap.py https://www.netresec.com/?download=trimpcap
