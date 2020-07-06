@@ -1,3 +1,6 @@
+sudo vi /etc/snort/snort.conf // Modify this line
+output unified2: filename snort.u2, limit 1024
+
 cd ~/snort_src
 wget https://github.com/firnsy/barnyard2/archive/master.tar.gz -O barnyard2-Master.tar.gz
 tar zxvf barnyard2-Master.tar.gz
