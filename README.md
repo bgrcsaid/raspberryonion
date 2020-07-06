@@ -20,6 +20,9 @@ Fail2ban
 -For cyber operations.
 Cyberchef
 
+You can follow the software installations and make the right configurations with the cron and services files.
+Don't forget to look at the user guide.
+
 System requirements:
 Model : Raspberry Pi 4, 
 RAM : 4-8 Go, 
