@@ -1,0 +1,8 @@
+https://github.com/gchq/CyberChef/releases // Download last .zip release
+
+cd /var/www/html/web/
+sudo mkdir CyberChef
+cd ~/Downloads
+sudo mv CyberChef.zip /var/www/html/web/CyberChef
+cd /var/www/html/web/CyberChef/
+sudo unzip CyberChef
