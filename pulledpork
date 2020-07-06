@@ -32,4 +32,5 @@ line 205 uncomment and change to:modifysid=/etc/snort/modifysid.conf
 
 mkdir -p /etc/snort/rules/iplists/
 touch /etc/snort/rules/iplists/default
-pulledpork.pl -c /etc/snort/pulledpork.conf //Commande pour enregistrer les dernières règles de snort
+
+pulledpork.pl -c /etc/snort/pulledpork.conf // Update last Snort rules
