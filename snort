@@ -1,4 +1,4 @@
-sudo apt install gcc git unzip flex bison libdnet tcpdump wget lzma autoconf libtool libpcre3-dev zlib1g-dev libluajit-5.1-puttydev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev vim default-mysql-server default-mysql-client locate libmariadbclient-dev mariadb-server
+sudo apt install gcc git unzip flex bison libdnet tcpdump wget lzma autoconf libtool libpcre3-dev zlib1g-dev libluajit-5.1-puttydev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev vim default-mysql-server default-mysql-client locate libmariadbclient-dev mariadb-server default-libmysqlclient-dev
 
 mkdir ~/snort_src
 cd ~/snort_src
