@@ -1,0 +1,35 @@
+sudo apt install libcrypt-ssleay-perl liblwp-useragent-determined-perl liblwp-protocol-https-perl
+
+cd ~/snort_src
+git clone https://github.com/shirkdog/pulledpork.git
+cd pulledpork/
+cp pulledpork.pl /usr/local/bin
+chmod +x /usr/local/bin/pulledpork.pl
+cp etc/*.conf /etc/snort
+mkdir /etc/snort/rules/iplists
+touch /etc/snort/rules/iplists/default.blacklist
+
+/usr/local/bin/pulledpork.pl -V
+
+sudo vi /etc/snort/
+include $RULE_PATH/snort.rules // Add this line at line 547
+
+vi /etc/snort/pulledpork.conf // Modify these lines
+
+rule_url=https://www.snort.org/reg-rules/|snortrules-snapshot.tar.gz|b497d71d90cff162aa532421177d117057ee945c
+line 21: comment community rules
+line 74 change to:rule_path=/etc/snort/rules/snort.rules
+line 89 change to:local_rules=/etc/snort/rules/local.rules
+line 92 change to:sid_msg=/etc/snort/sid-msg.map
+line 119 change to:config_path=/etc/snort/snort.conf
+line 136 change to:distro=FreeBSD-12
+line 144 change to:back_list=/etc/snort/rules/iplists/default.blacklist
+line 153 change to:IPRVersion=/etc/snort/rules/iplists
+line 202 uncomment and change to:enablesid=/etc/snort/enablesid.conf
+line 203 uncomment and change to:dropsid=/etc/snort/dropsid.conf
+line 204 uncomment and change to:disablesid=/etc/snort/disablesid.conf
+line 205 uncomment and change to:modifysid=/etc/snort/modifysid.conf
+
+mkdir -p /etc/snort/rules/iplists/
+touch /etc/snort/rules/iplists/default
+pulledpork.pl -c /etc/snort/pulledpork.conf //Commande pour enregistrer les dernières règles de snort
