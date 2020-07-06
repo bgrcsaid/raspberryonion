@@ -1,0 +1,59 @@
+sudo apt install gcc git unzip flex bison libdnet tcpdump wget lzma autoconf libtool libpcre3-dev zlib1g-dev libluajit-5.1-puttydev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev vim default-mysql-server default-mysql-client locate libmariadbclient-dev mariadb-server
+
+mkdir ~/snort_src
+cd ~/snort_src
+
+wget http://www.tcpdump.org/release/libpcap-1.8.1.tar.gz
+tar xzvf libpcap-1.8.1.tar.gz
+cd libpcap-1.8.1
+sudo ./configure && make && make install
+cd ..
+
+wget https://www.snort.org/downloads/snort/daq-2.0.7.tar.gz
+tar xvfz daq-2.0.7.tar.gz
+cd daq-2.0.7
+sudo autoreconf -f -i
+sudo ./configure && make && make install
+cd ..
+
+wget http://luajit.org/download/LuaJIT-2.0.5.tar.gz
+tar xvzf LuaJIT-2.0.5.tar.gz
+cd LuaJIT-2.0.5/
+sudo make && make install
+cd ..
+
+wget https://www.snort.org/downloads/snort/snort-2.9.16.tar.gz
+tar xvzf snort-2.9.16.tar.gz
+cd snort-2.9.16
+sudo ./configure --enable-sourcefire && make && make install
+
+sudo ldconfig
+sudo ln -s /usr/local/bin/snort /usr/sbin/snort
+snort -v
+groupadd snort
+useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort
+mkdir -p /etc/snort/rules
+mkdir /var/log/snort
+mkdir /usr/local/lib/snort_dynamicrules
+chmod -R 5775 /etc/snort
+chmod -R 5775 /var/log/snort
+chmod -R 5775 /usr/local/lib/snort_dynamicrules
+chown -R snort:snort /etc/snort
+chown -R snort:snort /var/log/snort
+chown -R snort:snort /usr/local/lib/snort_dynamicrules
+touch /etc/snort/rules/white_list.rules
+touch /etc/snort/rules/black_list.rules
+touch /etc/snort/rules/local.rules
+cp ~/snort_src/snort-2.9.16/etc/* /etc/snort/
+sed -i "s/include \$RULE\_PATH/#include \$RULE\_PATH/ " /etc/snort/snort.conf
+sudo vi /etc/snort/snort.conf // Modifier les lignes suivantes:
+ipvar HOME_NET 192.168.1.0/24
+ipvar EXTERNAL_NET !$HOME_NET
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
+var WHITE_LIST_PATH /etc/snort/rules
+var BLACK_LIST_PATH /etc/snort/rules
+include $RULE_PATH/local.rules
+
+snort -T -c /etc/snort/snort.conf
