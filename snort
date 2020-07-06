@@ -46,7 +46,9 @@ touch /etc/snort/rules/black_list.rules
 touch /etc/snort/rules/local.rules
 cp ~/snort_src/snort-2.9.16/etc/* /etc/snort/
 sed -i "s/include \$RULE\_PATH/#include \$RULE\_PATH/ " /etc/snort/snort.conf
-sudo vi /etc/snort/snort.conf // Modifier les lignes suivantes:
+
+sudo vi /etc/snort/snort.conf // Modify these lines
+
 ipvar HOME_NET 192.168.1.0/24
 ipvar EXTERNAL_NET !$HOME_NET
 var RULE_PATH /etc/snort/rules
