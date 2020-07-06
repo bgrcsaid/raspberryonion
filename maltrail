@@ -1,0 +1,8 @@
+sudo apt-get install schedtool
+mkdir maltrail
+cd maltrail
+sudo apt-get install git python-pcapy
+git clone https://github.com/stamparm/maltrail.git
+cd maltrail
+sudo python sensor.py
+python server.py
